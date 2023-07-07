@@ -12,6 +12,8 @@ public class Board {
     private String bContent;
     private Integer uId;
 
+    // toString() 구현
+    // lombok으로 사용하려면 @toString 사용하면 된다.
     @Override
     public String toString() {
         return "Board{" +

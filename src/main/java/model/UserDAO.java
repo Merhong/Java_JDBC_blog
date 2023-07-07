@@ -13,20 +13,23 @@ public class UserDAO {
         this.connection = connection;
     }
 
+    // CRUD의 Create
     public void insert(User user){
         String sql = "insert into user_tb(u_username, u_password, u_email)  values(?, ?, ?)";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, user.getUUsername());
-            pstmt.setString(2, user.getUPassword());
-            pstmt.setString(3, user.getUEmail());
+            pstmt.setString(1, user.getUUsername());    // 첫번째 물음표
+            pstmt.setString(2, user.getUPassword());    // 두번째 물음표
+            pstmt.setString(3, user.getUEmail());       // 세번째 물음표
             pstmt.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+    
+    // CRUD의 Delete
     public void delete(Integer id){
-        String sql = "delete from user_tb where u_id = ?";
+        String sql = "delete from user_tb where u_id = ?";              // 테이블로부터 id(PK)를 받아서 튜플 삭제
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, id);
@@ -35,11 +38,13 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+    
+    // CRUD의 Update
     public void update(User user){}
 
     public List<User> findAll(){
         List<User> userList = new ArrayList<>();
-        String sql = "select * from user_tb order by u_id desc";
+        String sql = "select * from user_tb order by u_id desc"; // 테이블로부터 모든 컬럼을 id를 받아 내림차순으로 출력
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -60,6 +65,8 @@ public class UserDAO {
 
         return userList;
     }
+    
+    // CRUD의 Read
     public User findById(Integer id){
         User user = null;
         String sql = "select * from user_tb where u_id = ?";
